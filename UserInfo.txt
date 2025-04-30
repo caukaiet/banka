@@ -1,4 +1,0 @@
-1:
-UserName: Admin
-Password: 0000
-Balance: 0

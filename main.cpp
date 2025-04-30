@@ -7,7 +7,7 @@ string user, pass, users[100][2], name, pas, id, id2, bal, tgid;
 int tryy=0, acc, k=0;
 
 void login (string user, string pass, int tryy){
-    cout<<endl;
+cout<<endl;
 cout<<"Login: "<<endl;
 cout<<endl;
 cout<< "User: ";
@@ -22,23 +22,23 @@ getline(ReadInfo, name);
 getline(ReadInfo, pas);
 getline(ReadInfo, bal);
 if(name=="UserName: " + user && pas=="Password: " + pass){
-        tgid=id;
-    cout<<"Welcome"<<endl;
-    cout<<endl;
-    ReadInfo.close();
-    return;
+tgid=id;
+cout<<"Welcome"<<endl;
+cout<<endl;
+ReadInfo.close();
+return;
 }
 }
-    tryy=tryy+1;
-    if(tryy!=3){
-    cout<<endl;
-    cout<<"Wrong, "<<3-tryy<<" tries left:"<<endl;
-    login(user, pass, tryy);
-    }
-    else{
-    cout<<"Locked out";
-    abort();
-    }
+tryy=tryy+1;
+if(tryy!=3){
+cout<<endl;
+cout<<"Wrong, "<<3-tryy<<" tries left:"<<endl;
+login(user, pass, tryy);
+}
+else{
+cout<<"Locked out";
+abort();
+}
 }
 
 
@@ -61,7 +61,7 @@ break;
 check.close();
 
 if(userExists){
-cout << "Username already exists. Please choose another one." << endl;
+cout << "Lietotajvards jau pastav. Ludzu, izvelieties citu." << endl;
 return;
 }
 
@@ -86,13 +86,9 @@ return;
 
 
 void InPut(int nauda){
-
 fstream ReadInfo("UserInfo.txt");
-
 for(int i=0; i<9999; i++){
-
 getline(ReadInfo, id);
-
 
 if(id==tgid){
 
@@ -127,11 +123,8 @@ return;
 
 
 void Balance(){
-
 fstream ReadInfo("UserInfo.txt");
-
 for(int i=0; i<9999; i++){
-
 getline(ReadInfo, id);
 
 if(id==tgid){
@@ -151,9 +144,7 @@ void output(int nauda){
 fstream ReadInfo("UserInfo.txt");
 
 for(int i=0; i<9999; i++){
-
 getline(ReadInfo, id);
-
 if(id==tgid){
 
 ReadInfo.close();
@@ -201,27 +192,48 @@ int main()
 ofstream Info("UserInfo.txt", ios::app);
 int comand=0;
 
+ifstream checkEmpty("UserInfo.txt");
+string firstLine;
+
+if (!getline(checkEmpty, firstLine)) {
+cout << "Nav atrasts neviens lietotajs. Ludzu, izveidojiet jaunu kontu.\n";
+Users();
+k=k+1;
+}
+else {
 if(k==0){
 login(user, pass, tryy);
 k=k+1;
 }
+}
 
 cout<<"Options:\n (+)Balance: 1 \n (+)Withdraw: 2 \n (+)Deposit: 3 \n (+)Logout: 4 \n";
 cout<<"input: ";
-while (!(cin >> comand)) {
-    cin.clear();
-    cin.ignore(10000, '\n');
-    cout << "Nederîga ievade. Lûdzu, ievadiet numuru: ";
+
+while (true) {
+if (cin >> comand && comand >= 1 && comand <= 4){break;}
+else{
+cin.clear();
+cin.ignore(10000, '\n');
+cout << "Nederiga ievade!"<<endl;
+cout<<"Input: ";
 }
+}
+
 if(comand==4){
 cout<<"\n (+)Login: 1 \n (+)Create new account: 2 \n";
 cout<<"input: ";
-while (!(cin >> comand)) {
-    cin.clear();
-    cin.ignore(10000, '\n');
-    cout << "Nederîga ievade. Lûdzu, ievadiet numuru: ";
 
+while (true) {
+if (cin >> comand && comand >= 1 && comand <= 2){break;}
+else{
+cin.clear();
+cin.ignore(10000, '\n');
+cout << "Nederiga ievade!"<<endl;
+cout<<"Input: ";
 }
+}
+
 cout<<endl;
 if(comand==1)login(user, pass, tryy);
 else if(comand==2)Users();
@@ -232,7 +244,14 @@ else if(comand==3){
 int nauda;
 cout<<endl;
 cout<<"Naudas suma: ";
-cin >> nauda;
+
+while (!(cin >> nauda)) {
+cin.clear();
+cin.ignore(10000, '\n');
+cout << "Nederiga ievade!"<<endl;
+cout<<"Input: ";
+}
+
 cout<<endl;
 InPut(nauda);
 main();
@@ -242,7 +261,14 @@ else if(comand==2){
 int nauda;
 cout<<endl;
 cout<<"Naudas suma: ";
-cin >> nauda;
+
+while (!(cin >> nauda)) {
+cin.clear();
+cin.ignore(10000, '\n');
+cout << "Nederiga ievade!"<<endl;
+cout<<"Input: ";
+
+}
 cout<<endl;
 output(nauda);
 cout<<endl;
