@@ -2,3 +2,11 @@
 UserName: Admin
 Password: 0000
 Balance: 0
+2: 
+UserName: Markus
+Password: 123
+Balance: 800
+3: 
+UserName: Skola
+Password: 321
+Balance: 0

@@ -43,21 +43,39 @@ if(name=="UserName: " + user && pas=="Password: " + pass){
 
 
 void Users(){
+string newUser, newPass;
+bool userExists = false;
 ifstream ReadInfo("UserInfo.txt", ios::app);
 cout<<"Create a account:"<<endl;
+cout<<"\nUsername: ";
+cin>>newUser;
+
+ifstream check("UserInfo.txt");
+string line;
+while(getline(check, line)){
+if(line == "UserName: " + newUser){
+userExists = true;
+break;
+}
+}
+check.close();
+
+if(userExists){
+cout << "Username already exists. Please choose another one." << endl;
+return;
+}
+
 for(int i=1; i<101; i++){
 getline(ReadInfo, id);
 getline(ReadInfo, name);
 getline(ReadInfo, pas);
 getline(ReadInfo, bal);
 if(id==""){
-cout<<"\nUsername: ";
-cin>>users[i][0];
 cout<<"Password: ";
-cin>>users[i][1];
+cin>>newPass;
 cout<<endl;
 ofstream Info("UserInfo.txt", ios::app);
-Info<<i<<": \n"<<"UserName: "<<users[i][0]<<"\nPassword: "<<users[i][1]<<"\nBalance: "<<0<<"\n";
+Info<<i<<": \n"<<"UserName: "<<newUser<<"\nPassword: "<<newPass<<"\nBalance: "<<0<<"\n";
 Info.close();
 ReadInfo.close();
 login(user, pass, tryy);
@@ -190,11 +208,20 @@ k=k+1;
 
 cout<<"Options:\n (+)Balance: 1 \n (+)Withdraw: 2 \n (+)Deposit: 3 \n (+)Logout: 4 \n";
 cout<<"input: ";
-cin>>comand;
+while (!(cin >> comand)) {
+    cin.clear();
+    cin.ignore(10000, '\n');
+    cout << "Nederîga ievade. Lûdzu, ievadiet numuru: ";
+}
 if(comand==4){
 cout<<"\n (+)Login: 1 \n (+)Create new account: 2 \n";
 cout<<"input: ";
-cin>>comand;
+while (!(cin >> comand)) {
+    cin.clear();
+    cin.ignore(10000, '\n');
+    cout << "Nederîga ievade. Lûdzu, ievadiet numuru: ";
+
+}
 cout<<endl;
 if(comand==1)login(user, pass, tryy);
 else if(comand==2)Users();
